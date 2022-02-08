@@ -1,6 +1,6 @@
 build:
   docker:
-    web: twitter-dashboard/twitter/web/Dockerfile
+    web: /twitter/twitter-dashboard/web/Dockerfile
 run:
   web: bundle exec puma -C config/puma.rb
 
