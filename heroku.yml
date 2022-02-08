@@ -1,8 +1,8 @@
-build:
-  docker:
-    web: ./web/Dockerfile
-run:
-  web: bundle exec puma -C config/puma.rb
+# build:
+#   docker:
+#     web: ./web/Dockerfile
+# run:
+#   web: bundle exec puma -C config/puma.rb
 
 version: '2'
 
