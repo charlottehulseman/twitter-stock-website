@@ -1,22 +1,22 @@
 build:
   docker:
-    web: twitter/twitter-dashboard/web/Dockerfile
+    web: ./web/Dockerfile
 run:
   web: bundle exec puma -C config/puma.rb
 
-# version: '2'
+version: '2'
 
-# services:
-#   web:
-#     restart: always
-#     build: ./web
-#     expose:
-#       - "8000"
-#     volumes:
-#       - /usr/src/app/web/project/static
-#     command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
-#     depends_on:
-#       - postgres
+services:
+  web:
+    restart: always
+    build: ./web
+    expose:
+      - "8000"
+    volumes:
+      - /usr/src/app/web/project/static
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
+    depends_on:
+      - postgres
 
 
   nginx:
