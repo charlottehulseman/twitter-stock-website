@@ -1,39 +1,49 @@
-version: '2'
+build:
+  docker:
+    web: twitter-dashboard/twitter/web/Dockerfile
+run:
+  web: bundle exec puma -C config/puma.rb
 
-services:
-  web:
-    restart: always
-    build: ./web
-    expose:
-      - "8000"
-    volumes:
-      - /usr/src/app/web/project/static
-    command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
-    depends_on:
-      - postgres
 
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-      - "80:80"
-    volumes:
-      - /www/static
-    volumes_from:
-      - web
-    depends_on:
-      - web
 
-  data:
-    image: postgres:9.6
-    volumes:
-      - /var/lib/postgresql
-    command: "true"
 
-  postgres:
-    restart: always
-    build: ./postgresql
-    volumes_from:
-      - data
-    expose:
-      - "5432"
+
+# version: '2'
+
+# services:
+#   web:
+#     restart: always
+#     build: ./web
+#     expose:
+#       - "8000"
+#     volumes:
+#       - /usr/src/app/web/project/static
+#     command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
+#     depends_on:
+#       - postgres
+
+#   nginx:
+#     restart: always
+#     build: ./nginx
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - /www/static
+#     volumes_from:
+#       - web
+#     depends_on:
+#       - web
+
+#   data:
+#     image: postgres:9.6
+#     volumes:
+#       - /var/lib/postgresql
+#     command: "true"
+
+#   postgres:
+#     restart: always
+#     build: ./postgresql
+#     volumes_from:
+#       - data
+#     expose:
+#       - "5432"
