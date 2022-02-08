@@ -1,0 +1,17 @@
+alembic
+Flask
+Flask-SQLAlchemy
+gunicorn
+html5lib
+httplib2
+Jinja2
+Mako
+Markdown
+MarkupSafe
+psycopg2
+pycparser
+SQLAlchemy
+Werkzeug
+WTForms
+tweepy
+pandas

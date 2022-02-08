@@ -1,0 +1,39 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="user-profile">
+    <div class="page-header">
+        {% if stock.logo %}
+        <img class="media-object" src="{{stock.logo}}" style="width:64px;height:64px;">
+        {% endif %}
+        <h2>
+            {{ stock.name }}
+        </h2>
+        <span class="label label-info" style="font-size:10px;">{{stock.sector}}</span>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Stock Details</div>
+                <div class="panel-body"><b>Sector:</b> {{ stock.sector }}</div>
+                <div class="panel-body"><b>Industry:</b> {{ stock.industry }}</div>
+                <div class="panel-body"><b>Company Size:</b> {{ stock.size }}</div>
+                <div class="panel-body"><b>Description:</b> {{ stock.description }}</div>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-8">
+            <div class="panel-group">
+                {% for tweet in tweets %}
+                <div class="panel panel-info">
+                  <div class="panel-body">
+                      <h4>@{{ tweet.username }}</h4>
+                      {{ tweet.text }}
+                    </div>
+                </div>
+                {% endfor %}
+              </div>
+        </div>
+    </div>
+</div>` {% endblock %}
