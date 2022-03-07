@@ -1,4 +1,4 @@
-FROM python:3.9.4
+FROM python:3.6.5
 
 # Create the group and user to be used in this container
 RUN groupadd flaskgroup && useradd -m -g flaskgroup -s /bin/bash flask

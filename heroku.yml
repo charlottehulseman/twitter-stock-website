@@ -1,10 +1,27 @@
-# build:
-#   docker:
-#     web: ./web/Dockerfile
-# run:
-#   web: bundle exec puma -C config/puma.rb
+setup:
+  addons:
+  - plan: heroku-postgresql
+    as: DATABASE
 
-# version: '2'
+build:
+  docker:
+    web: web/Dockerfile
+
+ config:
+    RAILS_ENV: development
+    FOO: bar
+release:
+  command:
+    - ./deployment-tasks.sh
+  image: worker
+run:
+  db: 
+  web: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
+  asset-streamer:
+    command:
+      - python ./instance/db_create.py
+    image: web
+
 
 services:
   web:
@@ -14,33 +31,5 @@ services:
       - "8000"
     volumes:
       - ./web/project/static
-    command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
     depends_on:
       - postgres
-
-
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-      - "80:80"
-    volumes:
-      - /www/static
-    volumes_from:
-      - web
-    depends_on:
-      - web
-
-  data:
-    image: postgres:9.6
-    volumes:
-      - /var/lib/postgresql
-    command: "true"
-
-  postgres:
-    restart: always
-    build: ./postgresql
-    volumes_from:
-      - data
-    expose:
-      - "5432"
