@@ -12,11 +12,18 @@ from flask_sqlalchemy import SQLAlchemy
 #### config ####
 ################
 
+heroku_database_path = os.getenv('DATABASE_URL', None)
+
 app = Flask(__name__, instance_relative_config=True)
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
 else:
     app.config.from_pyfile('flask.cfg')
+
+
+if heroku_database_path:
+    app.config["SQLALCHEMY_DATABASE_URI"] = heroku_database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
